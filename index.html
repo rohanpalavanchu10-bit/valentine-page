@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💘 Valentine?</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------------- BODY ---------------- */
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffd9dc, #ffb3c2);
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      overflow: hidden;
+      color: #ff6666;
+      transition: background 1s ease;
+    }
+
+    /* ---------------- GRADIENT TEXT ---------------- */
+    .gradient-text {
+      background: linear-gradient(90deg, #e60050, #800080);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.5s ease;
+    }
+
+    /* ---------------- CONTAINER ---------------- */
+    .container {
+      max-width: 90%;
+      margin: 5vh auto 0 auto;
+      padding-bottom: 20vh;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    /* ---------------- HEADINGS ---------------- */
+ /* HEADINGS */
+h1 {
+  font-size: 48px; /* fixed for desktop */
+  margin-bottom: 0.5em;
+}
+
+h2 {
+  font-size: 36px;
+  margin-bottom: 1em;
+}
+
+/* TEXT */
+p, #countdown {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+/* BUTTONS */
+button {
+  font-size: 18px;
+  padding: 10px 25px;
+}
+
+/* HEARTS */
+.heart {
+  font-size: 24px;
+}
+
+/* MOBILE SCALING */
+@media (max-width: 768px) {
+  h1 { font-size: 8vw; }
+  h2 { font-size: 6vw; }
+  p, #countdown { font-size: 4vw; }
+  button { font-size: 4vw; padding: 2vw 5vw; }
+  .heart { font-size: 8vw; }
+}
+
+@media (max-width: 400px) {
+  h1 { font-size: 10vw; }
+  h2 { font-size: 8vw; }
+  p, #countdown { font-size: 5vw; }
+  button { font-size: 5vw; padding: 3vw 5vw; }
+  .heart { font-size: 10vw; }
+}
+
+
+    /* ---------------- TEXT ---------------- */
+    p, #countdown {
+      font-size: 4vw;
+      color: #ff6666;
+      margin-bottom: 2vw;
+      transition: color 0.5s ease;
+    }
+
+    #countdown {
+      font-weight: bold;
+    }
+
+    /* ---------------- BUTTONS ---------------- */
+    button {
+      font-size: 4vw;
+      padding: 2vw 5vw;
+      margin: 2vw;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-block;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    #yes {
+      background-color: #e60050;
+      color: #ff6666;
+    }
+
+    #yes:hover {
+      transform: scale(1.1);
+    }
+
+    #no {
+      background-color: #ff6666;
+      color: #800080;
+    }
+
+    /* ---------------- HEARTS ---------------- */
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 8vw;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.8;
+      transition: all 1s ease;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-110vh); opacity: 0; }
+    }
+
+    /* ---------------- MEDIA QUERIES ---------------- */
+    @media (max-width: 400px) {
+      h1 { font-size: 10vw; }
+      h2 { font-size: 8vw; }
+      p, #countdown { font-size: 5vw; }
+      button { font-size: 5vw; padding: 3vw 5vw; }
+      .heart { font-size: 10vw; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container" id="main">
+    <h1 class="gradient-text">Hey <span id="name">my love</span> 💕</h1>
+    <p>I have an important question for you…</p>
+
+    <div id="countdown">Loading countdown…</div>
+
+    <h2 class="gradient-text">Will you be my Valentine? 💘</h2>
+
+    <div style="margin-top: 30px; position: relative;">
+      <button id="yes" onclick="sayYes()">Yes 💖</button>
+      <button id="no">No 😢</button>
+    </div>
+  </div>
+
+  <script>
+    // ---------------- PERSONALIZE ----------------
+    document.getElementById("name").textContent = "Siri";
+
+    const secretMessage = `
+      <span class="gradient-text" style="font-family:'Dancing Script', cursive; font-size:1.2em;">
+        🌹 You make my heart skip a beat every day ❤️<br>
+        I’m so lucky to have you in my life 💕
+      </span>
+    `;
+
+    // ---------------- COUNTDOWN ----------------
+    const valentinesDay = new Date("February 14, 2026 00:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = valentinesDay - now;
+
+      if (distance < 0) {
+        document.getElementById("countdown").textContent =
+          "It's Valentine's Day 💘";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+      document.getElementById("countdown").textContent =
+        `Valentine’s Day in: ${days} days ${hours} hours ${minutes} minutes 💕`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ---------------- YES BUTTON WITH CINEMATIC FADE ----------------
+    function sayYes() {
+      const main = document.getElementById("main");
+      const hearts = document.querySelectorAll(".heart");
+
+      // fade out container
+      main.style.opacity = 0;
+
+      // fade out hearts
+      hearts.forEach(h => h.style.opacity = 0);
+
+      // dim background
+      document.body.style.background = "linear-gradient(135deg, #ffccd1, #ff99aa)";
+
+      // after fade, replace content
+      setTimeout(() => {
+        main.innerHTML = `
+          <h1 class="gradient-text">HOORAY!</h1>
+          <p>You just made me the happiest person ever.</p>
+          <div style="margin-top: 30px; font-size: 1.2em;">
+            ${secretMessage}
+          </div>
+        `;
+        main.style.opacity = 1;
+      }, 1000);
+    }
+
+    // ---------------- FLOATING HEARTS ----------------
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 4 + Math.random() * 4 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+
+    setInterval(createHeart, 500);
+
+    // ---------------- RUNAWAY NO BUTTON ----------------
+    const noButton = document.getElementById("no");
+    noButton.addEventListener("mouseenter", () => {
+      const containerWidth = Math.max(noButton.parentElement.offsetWidth - noButton.offsetWidth, 10);
+      const containerHeight = Math.max(noButton.parentElement.offsetHeight - noButton.offsetHeight, 10);
+
+      const newX = Math.random() * containerWidth;
+      const newY = Math.random() * containerHeight;
+
+      noButton.style.position = "absolute";
+      noButton.style.left = newX + "px";
+      noButton.style.top = newY + "px";
+    });
+  </script>
+</body>
+</html>
